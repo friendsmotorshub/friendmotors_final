@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Admin - Friends Motors</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="adminHeader">Panel de Administración - Friends Motors</div>
+<div id="publicidades">
+<h2>Publicidades</h2>
+<input type="text" placeholder="Nueva publicidad" id="pubInput">
+<button onclick="agregarPublicidad()">Agregar</button>
+<ul id="pubList"></ul>
+</div>
+<div id="vehiculos">
+<h2>Vehículos</h2>
+<input type="text" placeholder="Nombre del vehículo" id="vehInput">
+<button onclick="agregarVehiculo()">Agregar</button>
+<ul id="vehList"></ul>
+</div>
+<div style="text-align:center; margin-bottom:50px;">
+<button onclick="guardarCambios()">Guardar Todos los Cambios</button>
+</div>
+<script>
+let publicidades=[]; let vehiculos=[];
+function agregarPublicidad(){const val=document.getElementById('pubInput').value;if(val){publicidades.push(val); mostrarListas(); document.getElementById('pubInput').value='';}}
+function agregarVehiculo(){const val=document.getElementById('vehInput').value;if(val){vehiculos.push(val); mostrarListas(); document.getElementById('vehInput').value='';}}
+function mostrarListas(){document.getElementById('pubList').innerHTML=publicidades.map(p=>`<li>${p}</li>`).join(''); document.getElementById('vehList').innerHTML=vehiculos.map(v=>`<li>${v}</li>`).join('');}
+function guardarCambios(){fetch('/guardar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({publicidades,vehiculos})}).then(res=>res.json()).then(d=>alert('Cambios guardados!'))}
+</script>
+</body>
+</html>

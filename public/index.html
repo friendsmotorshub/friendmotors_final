@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Friends Motors</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Bienvenidos a Friends Motors</h1>
+<h2>Publicidades</h2>
+<ul id="pubDisplay"></ul>
+<h2>Vehículos en venta</h2>
+<ul id="vehDisplay"></ul>
+<script>
+fetch('/datos').then(res=>res.json()).then(data=>{
+const pubList=document.getElementById('pubDisplay');
+pubList.innerHTML=data.publicidades.length? data.publicidades.map(p=>`<li>${p}</li>`).join(''):'<li>No hay publicidades cargadas</li>';
+const vehList=document.getElementById('vehDisplay');
+vehList.innerHTML=data.vehiculos.length? data.vehiculos.map(v=>`<li>${v}</li>`).join(''):'<li>No hay vehículos cargados</li>';
+});
+</script>
+</body>
+</html>
